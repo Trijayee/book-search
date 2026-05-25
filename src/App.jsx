@@ -9,16 +9,33 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
 
-  const searchBooks = async (index = 0) => {
+const API_KEY = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
+
+const searchBooks = async (index = 0) => {
+  try {
     setLoading(true);
+
+    const encodedQuery = encodeURIComponent(query);
+
     const res = await fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${query}&startIndex=${index}&maxResults=12`
+      `https://www.googleapis.com/books/v1/volumes?q=${encodedQuery}&startIndex=${index}&maxResults=12&key=${API_KEY}`
     );
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+
     const data = await res.json();
+
     setBooks(data.items || []);
     setStartIndex(index);
+
+  } catch (error) {
+    console.error("Fetch Error:", error);
+  } finally {
     setLoading(false);
-  };
+  }
+};
 
   return (
     <div className="book-app">
