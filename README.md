@@ -64,8 +64,7 @@ https://trijayee.github.io/BookSearch/
 
 ## 📸 Project Screenshot
 
-Add screenshots of your project here.
-
+![BookSearch Screenshot](images/screenshot.png)
 ---
 
 ## 👩‍💻 Author
